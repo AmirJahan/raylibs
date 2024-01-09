@@ -1,0 +1,6 @@
+﻿  MemoryPuzzleGame.cpp
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\MemoryPuzzleGame.cpp(23,17): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\MemoryPuzzleGame.cpp(39,32): warning C4305: 'argument': truncation from 'double' to 'float'
+  RayLib_Projects.vcxproj -> C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\x64\Debug\RayLib_Projects.exe
+  'pwsh.exe' is not recognized as an internal or external command,
+  operable program or batch file.
