@@ -62,6 +62,48 @@ void ball_010()
 
 
 
+void ui_button_011()
+{
+	const int screenWidth = 800;
+	const int screenHeight = 450;
+
+	InitWindow(screenWidth, screenHeight, "Button");
+
+	Rectangle btnBounds = { 100, 100, 100, 44 };
+	Color buttonColor = BLUE;
+
+
+	Vector2 mousePoint = { 0.0f, 0.0f }; // for caching
+
+	SetTargetFPS(60);
+
+	while (!WindowShouldClose())
+	{
+		mousePoint = GetMousePosition();
+
+		buttonColor = BLUE;
+		if (CheckCollisionPointRec(mousePoint, btnBounds))
+		{
+			buttonColor = GREEN;
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+				buttonColor = RED;
+		}
+
+
+		BeginDrawing();
+
+		ClearBackground(RAYWHITE);
+
+		DrawRectangleRounded(btnBounds, 0.1, 12, buttonColor);
+
+
+
+		EndDrawing();
+	}
+
+	CloseWindow();
+}
+
 // This function needs a lot of review
 void collisions_009()
 {

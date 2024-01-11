@@ -130,13 +130,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Flappy.cpp" />
     <ClCompile Include="games.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MemoryPuzzleGame.cpp" />
+    <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="tile.cpp" />
+    <ClCompile Include="WallBreaker.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Flappy.h" />
     <ClInclude Include="games.h" />
-    <ClInclude Include="MemoryPuzzleGame.h" />
+    <ClInclude Include="Memory.h" />
+    <ClInclude Include="tile.h" />
+    <ClInclude Include="tileStatus.h" />
+    <ClInclude Include="WallBreaker.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\cat.png" />

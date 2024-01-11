@@ -3,7 +3,10 @@
 
 #include "games.h"
 
-#include "MemoryPuzzleGame.h"
+#include "Memory.h"
+
+#include "WallBreaker.h"
+#include "Flappy.h"
 
 using namespace std;
 
@@ -11,10 +14,20 @@ using namespace std;
 
 int main()
 {
-    MemoryPuzzleGame myObj;
-    myObj.test();
+    //Flappy flappy;
+    //flappy.Main();
 
 
+    //WallBreaker wallBreaker;
+    //wallBreaker.Main();
+
+
+
+
+    Memory memory;
+    memory.Main();
+
+    //ui_button_011();
     //collisions_008();
 
     //triangle_corners_007();
