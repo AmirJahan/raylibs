@@ -33,6 +33,12 @@
     <ClCompile Include="Flappy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Extensions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory.h">
@@ -53,12 +59,21 @@
     <ClInclude Include="Flappy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Extensions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\cat.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Resources\dog.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resource Files\soccerball.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

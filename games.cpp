@@ -61,6 +61,64 @@ void ball_010()
 
 
 
+void bouncingBall_012()
+{
+	InitWindow(600, 600, "Ball Animation");
+
+	int width = 600;
+	int height = 600;
+
+	// Load ball image
+	Texture2D ballTex = LoadTexture("Resource Files/soccerball.png");
+
+
+	Vector2 ballPos = { width / 2 - ballTex.width / 2, height / 2};
+	float yRate = 2.0f;
+
+
+
+	SetTargetFPS(60); // Set the desired frame rate
+
+	while (!WindowShouldClose())
+	{
+		// Update the ball's position
+		yRate += 0.5f;
+		ballPos.y += yRate;
+
+		// Collision with the bottom
+		if (ballPos.y > height - ballTex.height)
+		{
+			ballPos.y = height - ballTex.height;
+			yRate *= -0.9f;
+		}
+		else if (ballPos.y <= 0)
+		{
+			yRate *= -1;
+		}
+
+		// Check for mouse release
+		if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+		{
+			ballPos.y = 150;
+		}
+
+		// Draw
+		BeginDrawing();
+		ClearBackground(BLACK);
+		DrawTexture(ballTex,
+					ballPos.x,
+					ballPos.y,
+					WHITE);
+
+		EndDrawing();
+	}
+
+	// De-Initialization
+	UnloadTexture(ballTex);  // Unload the texture
+	CloseWindow();           // Close the window
+
+}
+
 
 void ui_button_011()
 {

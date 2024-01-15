@@ -8,6 +8,8 @@
 #include "WallBreaker.h"
 #include "Flappy.h"
 
+#include "Particle.h"
+
 using namespace std;
 
 
@@ -22,10 +24,16 @@ int main()
     //wallBreaker.Main();
 
 
+    bouncingBall_012();
+
+
+    // make an instance of Memory class
+    Particle particles;
+    //particles.Main();
 
 
     Memory memory;
-    memory.Main();
+    //memory.Main();
 
     //ui_button_011();
     //collisions_008();
