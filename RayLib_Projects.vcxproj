@@ -136,6 +136,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Spirograph.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="WallBreaker.cpp" />
   </ItemGroup>
@@ -145,6 +146,7 @@
     <ClInclude Include="games.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Spirograph.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tileStatus.h" />
     <ClInclude Include="WallBreaker.h" />

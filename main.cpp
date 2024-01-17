@@ -10,12 +10,18 @@
 
 #include "Particle.h"
 
+#include "Spirograph.h"
+
 using namespace std;
 
 
 
 int main()
 {
+
+    Spirograph spiro;
+    spiro.Main();
+
     //Flappy flappy;
     //flappy.Main();
 
@@ -24,7 +30,7 @@ int main()
     //wallBreaker.Main();
 
 
-    bouncingBall_012();
+    // bouncingBall_012();
 
 
     // make an instance of Memory class

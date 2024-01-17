@@ -33,13 +33,11 @@ void Particle::Main()
 	while (!WindowShouldClose())
 	{
 		
-		EvalCurFrame();
 
 		BeginDrawing();
 
 		ClearBackground(RAYWHITE);
-
-		DrawCurFrame();
+		Update();
 
 		EndDrawing();
 	}
@@ -94,6 +92,9 @@ void Particle::DrawCurFrame()
 
 void Particle::Update()
 {
+	EvalCurFrame();
+
+
 	DrawCurFrame();
 }
 
