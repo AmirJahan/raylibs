@@ -3,11 +3,9 @@
 
 #include "Spirograph.H"
 
+#include "Extensions.h"
 
-void Spirograph::ringDraw(float inpRadius, Color inpColor)
-{
-	DrawCircleLines(mainXCen, mainYCen, inpRadius * genMult, inpColor);
-}
+
 
 
 void Spirograph::drawCurve()
@@ -30,28 +28,20 @@ void Spirograph::drawCurve()
 			Vector2 curP = pointsArr[i];
 			Vector2 preP = pointsArr[i - 1];
 
-			DrawLine (curP.x, curP.y, preP.x, preP.y, linesColor);
+			DrawLine (curP.x, curP.y, preP.x, preP.y, spiroColor);
 		}
 		previousLoc = Vector2{ drawHeadX, drawHeadY };
 	}
 }
 
-void Spirograph::smallRing()
-{
-	drawHeadRingCenterX = mainXCen + sin(currentRotation * DEG2RAD) * rotationRadius * genMult;
-	drawHeadRingCenterY = mainYCen + cos(currentRotation * DEG2RAD) * rotationRadius * genMult;
-
-
-	DrawCircleLines (drawHeadRingCenterX,
-		   drawHeadRingCenterY,
-		   drawRingRadius * genMult, RED);
-}
 
 
 void Spirograph::Main()
 {
+	Start();
+
 	InitWindow(width, height, "Spirograph");
-	SetTargetFPS(60);
+	SetTargetFPS(myFPS);
 
 	while (!WindowShouldClose())
 	{
@@ -69,68 +59,112 @@ void Spirograph::Main()
 
 void Spirograph::Start()
 {
-	mainXCen = width / 2;
-	mainYCen = (height - 100) / 2 + 100;
+	cenX = width / 2;
+	cenY = height / 2;
 	rotationRadius = outerRadius - drawRingRadius; // rotation ring radius calculated
 
-
-
+	spiroColor = RandomColor();
 }
 
 
 void Spirograph::EvalCurFrame()
 {
+	if (IsKeyDown(KEY_UP))
+	{
+		drawRingRadius++;
+		pointsArr.clear();
+		spiroColor = RandomColor();
 
-}
-void Spirograph::DrawCurFrame()
-{
+	} else 	if (IsKeyDown(KEY_DOWN))
+	{
+		drawRingRadius--;
+		pointsArr.clear();
+		spiroColor = RandomColor();
 
-}
-void Spirograph::Update()
-{
+	} else if (IsKeyDown(KEY_LEFT))
+	{
+		drawHeadDistToCen--;
+		pointsArr.clear();
+		spiroColor = RandomColor();
 
-	ringDraw(rotationRadius, Color{ 200, 200, 200, 100 });  // rotation ring
+	} else if (IsKeyDown(KEY_RIGHT))
+	{
+		drawHeadDistToCen++;
+		pointsArr.clear();
+		spiroColor = RandomColor();
 
-	ringDraw(outerRadius, BLACK); // outer ring
+	}
+	else if (IsKeyDown(KEY_W))
+	{
+		speed += 0.1;
+		pointsArr.clear();
+		spiroColor = RandomColor();
+	}
+	else if (IsKeyDown(KEY_S))
+	{
+		speed -= 0.1;
+		pointsArr.clear();
+		spiroColor = RandomColor();
+	}
+
+
 	rotationRadius = outerRadius - drawRingRadius; // rotation ring radius calculated
 
 
 	outerInnerRatio = outerRadius / (drawRingRadius - drawHeadDistToCen);
 
-	// inner little rotating around
+
+	// small ring
+	drawHeadRingCenterX = cenX + sin(currentRotation * DEG2RAD) * rotationRadius ;
+	drawHeadRingCenterY = cenY + cos(currentRotation * DEG2RAD) * rotationRadius ;
 
 
-	smallRing();
-	drawHead();
-	if (!pauseWhileControl)
-	{
-		currentRotation += (speed * 3); // 3 is default in 120 fps
-		drawCurve();
-	}
+	// calculate head
 
-}
-
-
-void Spirograph::drawHead()
-{
-	if (!pauseWhileControl)
 		headCurDegree = currentRotation * outerInnerRatio;
-	else
-		headCurDegree = 1;
 
-	//println("currentRotation" + currentRotation);
-	//println("headCurDegree" + headCurDegree);
 
 	drawHeadX = drawHeadRingCenterX + sin(headCurDegree * DEG2RAD) * drawHeadDistToCen;
 	drawHeadY = drawHeadRingCenterY + cos(headCurDegree * DEG2RAD) * drawHeadDistToCen;
 
 
-
-	DrawCircleLines (drawHeadX, drawHeadY, 2, RED);
-
-
-	DrawLine (drawHeadRingCenterX, drawHeadRingCenterY, drawHeadX, drawHeadY, MAGENTA);
+	currentRotation += (speed * 3); // 3 is default in 120 fps
 
 
-	DrawCircleLines(drawHeadRingCenterX, drawHeadRingCenterY, 3, YELLOW);
 }
+void Spirograph::DrawCurFrame()
+{
+	// small ring
+	DrawCircleLines(cenX, cenY, rotationRadius, GRAY);
+
+	// large ring
+	DrawCircleLines(cenX, cenY, outerRadius, GRAY);
+
+
+
+	// drawing ring
+	DrawCircleLines(drawHeadRingCenterX,
+					drawHeadRingCenterY,
+					drawRingRadius, RED);
+
+
+
+	drawCurve();
+
+
+
+	// draw head base
+	DrawCircle(drawHeadX, drawHeadY, 6, RED);
+	
+	// Draw line
+	DrawLine(drawHeadRingCenterX, drawHeadRingCenterY, drawHeadX, drawHeadY, MAGENTA);
+
+	// Draw head
+	DrawCircle(drawHeadRingCenterX, drawHeadRingCenterY, 4, BLUE);
+}
+void Spirograph::Update()
+{
+	EvalCurFrame();
+	DrawCurFrame();
+}
+
