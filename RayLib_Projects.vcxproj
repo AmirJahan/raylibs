@@ -135,6 +135,7 @@
     <ClCompile Include="games.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="MsPacman.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Spirograph.cpp" />
     <ClCompile Include="tile.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="Flappy.h" />
     <ClInclude Include="games.h" />
     <ClInclude Include="Memory.h" />
+    <ClInclude Include="MsPacman.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Spirograph.h" />
     <ClInclude Include="tile.h" />

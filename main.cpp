@@ -11,6 +11,7 @@
 #include "Particle.h"
 
 #include "Spirograph.h"
+#include "MsPacman.h"
 
 using namespace std;
 
@@ -20,13 +21,17 @@ int main()
 {
 
     Spirograph spiro;
-    spiro.Main();
+    //spiro.Main();
 
     //Flappy flappy;
     //flappy.Main();
 
 
-    //WallBreaker wallBreaker;
+    MsPacman msPacman;
+    msPacman.Main();
+
+
+    WallBreaker wallBreaker;
     //wallBreaker.Main();
 
 

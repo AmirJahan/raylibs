@@ -9,9 +9,24 @@
 
 
 
+//Mid-term assignment
+/*
+Develop CircleToRoundRectCollision
+Depending on where the collision happens, have a direction calculated
+Include unlimited number of levels that come up after another
+Have new life drop downs
+Have a cheat drow down (such as when the player catches the cheat, 
+		for the next 5 seconds (with feedback), there won't be any speed reversal 
+		with the bricks. So the ball can cut through many bricks at once
+Include sound effects
+Bonus: Find a way to play it on your phone
+
+*/
+
+
 void WallBreaker::Main()
 {
-	InitWindow(screenWidth, screenHeight, "classic game: arkanoid");
+	InitWindow(screenWidth, screenHeight, "Wall Breaker");
 
 	Start();
 
@@ -29,15 +44,16 @@ void WallBreaker::Main()
 // Initialize game variables
 void WallBreaker::Start()
 {
-
-
 	float spaceForBricks = screenWidth - (BRICKS_PER_ROW * GAP + GAP); // one extra gap at the end
-	brickSize = Vector2{ spaceForBricks / BRICKS_PER_ROW, 24 };
+	brickSize = Vector2{ spaceForBricks / BRICKS_PER_ROW, BRICK_HEIGHT };
+
+
 
 	// Initialize player
 	player.position = Vector2{ screenWidth / 2, screenHeight * 7 / 8 };
 	player.size = Vector2{ screenWidth / 10, 20 };
 	player.curLife = MAX_LIVES;
+
 
 	// Initialize ball
 	ball.position = Vector2{ screenWidth / 2, screenHeight * 7 / 8 - 30 };
@@ -48,20 +64,18 @@ void WallBreaker::Start()
 
 
 	// Initialize bricks
-
-
 	for (int i = 0; i < ROWS_OF_BRICKS; i++)
 	{
 		for (int j = 0; j < BRICKS_PER_ROW; j++)
 		{
-			brick[i][j].origin = Vector2
-			{
-				GAP + j * (GAP + brickSize.x),
-				GAP + i * (GAP + brickSize.y) 
-			};
+			float x = GAP + j * (GAP + brickSize.x);
+			float y = GAP + i * (GAP + brickSize.y);
 
-			brick[i][j].color = colors[i];
-			brick[i][j].active = true;
+			Brick b = Brick{ Vector2 { x, y	} ,
+				true, colors[i],
+				Rectangle{ x, y, brickSize.x, brickSize.y } };
+
+			bricks.push_back(b);
 		}
 	}
 }
@@ -80,14 +94,14 @@ void WallBreaker::EvalCurFrame()
 		return; // if game is over, no need to continue any further inthis frame
 	}
 
-	if (gamePaused)
-		return; // if game is paused, no need to continue any further inthis frame
-
 
 
 	// MAIN LOOP
 	// we get here, if game is not over
 	if (IsKeyPressed('P')) gamePaused = !gamePaused;
+
+	if (gamePaused)
+		return; // if game is paused, no need to continue any further inthis frame
 
 
 	// Player movement logic
@@ -99,7 +113,8 @@ void WallBreaker::EvalCurFrame()
 	if (IsKeyDown(KEY_RIGHT)) player.position.x += 5; // move right
 
 	// when we reach far right
-	if ((player.position.x + player.size.x / 2) >= screenWidth) player.position.x = screenWidth - player.size.x / 2;
+	if ((player.position.x + player.size.x / 2) >= screenWidth)
+		player.position.x = screenWidth - player.size.x / 2;
 
 	// Ball launching logic
 	if (!ball.active)
@@ -107,7 +122,7 @@ void WallBreaker::EvalCurFrame()
 		if (IsKeyPressed(KEY_SPACE))
 		{
 			ball.active = true;
-			ball.speed = Vector2{ 0, -5 };
+			ball.speed = Vector2{ 0, -5}; // go upwards
 		}
 	}
 
@@ -119,12 +134,15 @@ void WallBreaker::EvalCurFrame()
 	}
 	else
 	{ // when ball gets de-activated
+		// put it on top of the player
 		ball.position = Vector2{ player.position.x, screenHeight * 7 / 8 - 20 };
 	}
 
 	// Collision logic: ball vs walls
-	if (((ball.position.x + ball.radius) >= screenWidth) || ((ball.position.x - ball.radius) <= 0)) ball.speed.x *= -1;
-	if ((ball.position.y - ball.radius) <= 0) ball.speed.y *= -1;
+	if (((ball.position.x + ball.radius) >= screenWidth) || ((ball.position.x - ball.radius) <= 0))
+		ball.speed.x *= -1; // running to vertical walla
+	if ((ball.position.y - ball.radius) <= 0) 
+		ball.speed.y *= -1; // running to the top wall
 	if ((ball.position.y + ball.radius) >= screenHeight)
 	{
 		// we have fallen to the death zone
@@ -135,8 +153,7 @@ void WallBreaker::EvalCurFrame()
 	}
 
 	// Collision logic: ball vs player
-
-
+#pragma region ball_player cllision
 
 	if (CheckCollisionCircleRec(ball.position, ball.radius, PlayersCurrentRect()))
 	{
@@ -148,67 +165,32 @@ void WallBreaker::EvalCurFrame()
 			ball.speed.x = (ball.position.x - player.position.x) / (player.size.x / 2) * 5;
 		}
 	}
+#pragma endregion ball_player cllision
 
-	// Collision logic: ball vs bricks
-	for (int i = 0; i < ROWS_OF_BRICKS; i++)
+
+
+	for (int i = 0; i < bricks.size(); i++)
 	{
-		for (int j = 0; j < BRICKS_PER_ROW; j++)
+		if (CheckCollisionCircleRec(ball.position, ball.radius, bricks[i].rect))
 		{
-			if (brick[i][j].active)
-			{
-				// Hit below
-				if (((ball.position.y - ball.radius) <= (brick[i][j].origin.y + brickSize.y / 2)) &&
-					((ball.position.y - ball.radius) > (brick[i][j].origin.y + brickSize.y / 2 + ball.speed.y)) &&
-					((fabs(ball.position.x - brick[i][j].origin.x)) < (brickSize.x / 2 + ball.radius * 2 / 3)) && (ball.speed.y < 0))
-				{
-					brick[i][j].active = false;
-					ball.speed.y *= -1;
-				}
-				// Hit above
-				else if (((ball.position.y + ball.radius) >= (brick[i][j].origin.y - brickSize.y / 2)) &&
-						 ((ball.position.y + ball.radius) < (brick[i][j].origin.y - brickSize.y / 2 + ball.speed.y)) &&
-						 ((fabs(ball.position.x - brick[i][j].origin.x)) < (brickSize.x / 2 + ball.radius * 2 / 3)) && (ball.speed.y > 0))
-				{
-					brick[i][j].active = false;
-					ball.speed.y *= -1;
-				}
-				// Hit left
-				else if (((ball.position.x + ball.radius) >= (brick[i][j].origin.x - brickSize.x / 2)) &&
-						 ((ball.position.x + ball.radius) < (brick[i][j].origin.x - brickSize.x / 2 + ball.speed.x)) &&
-						 ((fabs(ball.position.y - brick[i][j].origin.y)) < (brickSize.y / 2 + ball.radius * 2 / 3)) && (ball.speed.x > 0))
-				{
-					brick[i][j].active = false;
-					ball.speed.x *= -1;
-				}
-				// Hit right
-				else if (((ball.position.x - ball.radius) <= (brick[i][j].origin.x + brickSize.x / 2)) &&
-						 ((ball.position.x - ball.radius) > (brick[i][j].origin.x + brickSize.x / 2 + ball.speed.x)) &&
-						 ((fabs(ball.position.y - brick[i][j].origin.y)) < (brickSize.y / 2 + ball.radius * 2 / 3)) && (ball.speed.x < 0))
-				{
-					brick[i][j].active = false;
-					ball.speed.x *= -1;
-				}
-			}
+
+			bricks.erase(bricks.begin() + i);
+			ball.speed.y *= -1;
+			break; // if one brick collision happened. Let's break
+			// so, we don't collilde with two bricks in the same frame
 		}
 	}
-
-	// Game is over unless there is at least one active brick or life
-	gameOver = true;
 
 	if (player.curLife > 0)
 	{
-		for (int i = 0; i < ROWS_OF_BRICKS; i++)
-		{
-			for (int j = 0; j < BRICKS_PER_ROW; j++)
-			{
-				if (brick[i][j].active)
-				{
-					gameOver = false;
-					return; // there's at least one active, no need to continue
-				}
-			}
-		}
+		for (Brick b : bricks)
+			if (b.active)
+				gameOver = false;
+			else
+				gameOver = true;
 	}
+	else
+		gameOver = true;
 }
 
 
@@ -235,8 +217,7 @@ void WallBreaker::DrawCurFrame()
 		// Draw player bar
 		Rectangle playerRect = PlayersCurrentRect();
 
-		DrawRectangleRounded(playerRect, 6, 8, GREEN);
-
+		DrawRectangleRounded(playerRect, 4, 8, GREEN);
 
 		// Draw player lives
 		for (int i = 0; i < player.curLife; i++)
@@ -251,32 +232,17 @@ void WallBreaker::DrawCurFrame()
 					ball.radius,
 					MAROON);
 
-		// Draw bricks
-		for (int i = 0; i < ROWS_OF_BRICKS; i++)
+		for (Brick b : bricks)
 		{
-			for (int j = 0; j < BRICKS_PER_ROW; j++)
-			{
-				if (brick[i][j].active)
-				{
-					Rectangle rect = Rectangle{ brick[i][j].origin.x,
-								  brick[i][j].origin.y,
-								  brickSize.x,
-								  brickSize.y };
-
-					DrawRectangleRounded(rect, 
-										 4, 
-										 8,
-										 brick[i][j].color);
-
-				}
-			}
+			b.DrawBrick();
+		}
 
 			if (gamePaused)
 				DrawText("GAME PAUSED",
 						 screenWidth / 2 - MeasureText("GAME PAUSED", 40) / 2,
 						 screenHeight / 2 - 40, 40,
 						 GRAY);
-		}
+		
 	}
 	else
 		DrawText("PRESS [ENTER] TO PLAY AGAIN",

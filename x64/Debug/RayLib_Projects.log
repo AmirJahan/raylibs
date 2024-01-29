@@ -1,30 +1,6 @@
-﻿  Spirograph.cpp
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.H(18,16): warning C4305: 'initializing': truncation from 'double' to 'float'
-  (compiling source file 'Spirograph.cpp')
-  
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(31,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(31,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(31,26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(31,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(44,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(62,15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(63,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(99,15): warning C4305: '+=': truncation from 'double' to 'float'
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(105,15): warning C4305: '-=': truncation from 'double' to 'float'
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(138,24): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(138,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(141,24): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(141,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(147,6): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(146,18): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(157,24): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(157,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(160,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(160,53): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(160,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(160,11): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(163,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.cpp(163,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+﻿  MsPacman.cpp
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\MsPacman.cpp(43,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\MsPacman.cpp(42,44): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   RayLib_Projects.vcxproj -> C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\x64\Debug\RayLib_Projects.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

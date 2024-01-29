@@ -5,7 +5,7 @@
 #include <string>
 
 #include "tile.h"
-
+#include <vector>
 
 
 #ifndef WALL_H
@@ -17,17 +17,14 @@ class WallBreaker
 {
 public:
 
-    //----------------------------------------------------------------------------------
-    // Some Defines
-    //----------------------------------------------------------------------------------
+
 #define MAX_LIVES         5
 #define ROWS_OF_BRICKS         5
 #define BRICKS_PER_ROW        12
-#define GAP 8
+#define GAP 2
+#define BRICK_HEIGHT 24
 
-//----------------------------------------------------------------------------------
-// Types and Structures Definition
-//----------------------------------------------------------------------------------
+// typedef ~ Alias
     typedef struct Player {
         Vector2 position;
         Vector2 size;
@@ -45,11 +42,20 @@ public:
         Vector2 origin;
         bool active;
         Color color;
+        Rectangle rect;
+
+        void DrawBrick()
+        {
+            DrawRectangleRounded(rect,
+                                 0.5f,
+                                 4,
+                                 color);
+        }
+
     } Brick;
 
-    //------------------------------------------------------------------------------------
-    // Global Variables Declaration
-    //------------------------------------------------------------------------------------
+
+
     static const int screenWidth = 800;
     static const int screenHeight = 450;
 
@@ -61,8 +67,12 @@ public:
 
     Player player = { 0 };
     Ball ball = { 0 };
-    Brick brick[ROWS_OF_BRICKS][BRICKS_PER_ROW] = { 0 };
+
+    std::vector<Brick> bricks;
+
     Vector2 brickSize = { 0 };
+
+
 
     //------------------------------------------------------------------------------------
     // Module Functions Declaration (local)
@@ -73,7 +83,6 @@ public:
     void DrawCurFrame();         // Draw game (one frame)
     void Update();  // Update and Draw (one frame)
     Rectangle PlayersCurrentRect();
-
 };
 
 
