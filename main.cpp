@@ -28,11 +28,11 @@ int main()
 
 
     MsPacman msPacman;
-    msPacman.Main();
+    //msPacman.Main();
 
 
     WallBreaker wallBreaker;
-    //wallBreaker.Main();
+    wallBreaker.Main();
 
 
     // bouncingBall_012();

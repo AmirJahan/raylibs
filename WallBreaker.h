@@ -1,89 +1,94 @@
 #pragma once
-
+#include <vector>
 #include "raylib.h"
-#include <vector>
-#include <string>
 
-#include "tile.h"
-#include <vector>
+#ifndef WALLBREAKER_H
+#define WALLBREAKER_H
 
 
-#ifndef WALL_H
-#define WALL_H
-
-
-
-class WallBreaker 
+class WallBreaker
 {
 public:
 
-
-#define MAX_LIVES         5
-#define ROWS_OF_BRICKS         5
-#define BRICKS_PER_ROW        12
-#define GAP 2
+#define MAX_LIVES 5
+#define ROWS_OF_BRICKS 5
+#define BRICKS_PER_ROW 8
+#define GAP 8 // pixels
 #define BRICK_HEIGHT 24
 
-// typedef ~ Alias
-    typedef struct Player {
-        Vector2 position;
-        Vector2 size;
-        int curLife;
-    } Player;
+	typedef struct Player
+	{
+		Vector2 position; // it's the center
+		Vector2 size;
+		int curLife;
 
-    typedef struct Ball {
-        Vector2 position;
-        Vector2 speed;
-        int radius;
-        bool active;
-    } Ball;
+		Rectangle GetRect()
+		{
+			return Rectangle{ position.x - size.x / 2,
+										 position.y - size.y / 2,
+										 size.x,
+										 size.y };
+		}
 
-    typedef struct Brick {
-        Vector2 origin;
-        bool active;
-        Color color;
-        Rectangle rect;
+		void Draw()
+		{
+			DrawRectangleRounded(GetRect(), 0.3, 8, DARKGREEN);
+		}
 
-        void DrawBrick()
-        {
-            DrawRectangleRounded(rect,
-                                 0.5f,
-                                 4,
-                                 color);
-        }
+	} Player;
 
-    } Brick;
+	typedef struct Ball
+	{
+		Vector2 position;
+		Vector2 speed = Vector2{ 0, -5 };
+		int radius = 8;
+		bool active = false;
 
 
-
-    static const int screenWidth = 800;
-    static const int screenHeight = 450;
-
-    bool gameOver = false;
-    bool gamePaused = false;
-
-    // we have one color per row
-    Color colors[ROWS_OF_BRICKS] = { PURPLE, BLUE, GOLD, PINK, YELLOW };
-
-    Player player = { 0 };
-    Ball ball = { 0 };
-
-    std::vector<Brick> bricks;
-
-    Vector2 brickSize = { 0 };
+		void Draw()
+		{
+			DrawCircle(position.x, position.y, radius, MAROON);
+		}
+	} Ball;
 
 
 
-    //------------------------------------------------------------------------------------
-    // Module Functions Declaration (local)
-    //------------------------------------------------------------------------------------
-    void Main();
-    void Start();         // Initialize game
-    void EvalCurFrame();       // Update game (one frame)
-    void DrawCurFrame();         // Draw game (one frame)
-    void Update();  // Update and Draw (one frame)
-    Rectangle PlayersCurrentRect();
+
+	Color colors[ROWS_OF_BRICKS] = { RED, PURPLE, ORANGE, BLUE, GREEN };
+	typedef struct Brick
+	{
+		Color color;
+		Rectangle rect;
+		void Draw() { DrawRectangleRounded(rect, 0.3f, 8, color); }
+	} Brick;
+	std::vector<Brick> bricks;
+
+
+
+	Player player = { 0 };
+	Ball ball = { 0 };
+
+	bool gamePaused = false;
+	bool gameOver = false;
+	bool levelWon = false;
+
+
+
+	static const int screenWidth = 800;
+	static const int screenHeight = 450;
+
+
+
+	void Main();
+	void Start();
+	void EvalCurFrame();
+	void DrawCurFrame();
+	void Update();
 };
 
 
-#endif
+
+
+
+#endif // !WALLBREAKER_H
+
