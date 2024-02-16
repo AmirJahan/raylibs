@@ -137,6 +137,7 @@
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="MsPacman.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="Snake.cpp" />
     <ClCompile Include="Spirograph.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="WallBreaker.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="Memory.h" />
     <ClInclude Include="MsPacman.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Snake.h" />
     <ClInclude Include="Spirograph.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="tileStatus.h" />

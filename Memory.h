@@ -29,15 +29,18 @@ public:
     std::vector<int> numbers;
 
 
-    int tile_1_index = -1;
-    int tile_2_index = -1;
+    Tile* tile_1 = nullptr;
+    Tile* tile_2 = nullptr;
+
     bool gameOver = false;
 
-    int gridSize = 4;
+    int gridSize = 6;
    
 
 
-    bool compareMode = false; // this might seem redundant, but a good idea
+    bool compareMode = false; 
+
+    // used to calculate the time for compare
     float timeOfSecondClick = -1.0;
 
     bool canClick = true;
@@ -50,12 +53,11 @@ public:
     void Main();
     void Start();
     void EvalCurFrame();
+
+
+
     void DrawCurFrame();
     void Update();
-
-
-
-
 };
 
 #endif 

@@ -12,20 +12,24 @@
 #include <ctime>        // std::time
 #include <cstdlib>      // std::rand, std::srand
 #include <random>
-
+#include <time.h>
 
 
 void Memory::Main()
 {
-	InitWindow(screenWidth, screenHeight, "Memory Puzzle Game");
-
 	Start();
 
+	InitWindow(screenWidth, screenHeight, "Memory Puzzle Game");
 	SetTargetFPS(60);
+
 
 	while (!WindowShouldClose())
 	{
+		BeginDrawing();
+
+		ClearBackground(RAYWHITE);
 		Update();
+
 		EndDrawing();
 	}
 
@@ -34,6 +38,9 @@ void Memory::Main()
 
 void Memory::Start()
 {
+	srand(time(NULL)); // seed
+
+
 	tilesArr.clear();
 
 	int tileSize = (int)((screenHeight - GAP * (gridSize + 1)) / gridSize);   
@@ -52,6 +59,8 @@ void Memory::Start()
 			int randId = rand() % numbers.size();
 			int thisNum = numbers[randId];
 			Tile tile = Tile(row, col, tileSize, gridSize, thisNum);
+
+			
 			tilesArr.push_back(tile);
 			numbers.erase(numbers.begin() + randId);
 		}
@@ -61,7 +70,6 @@ void Memory::EvalCurFrame()
 {
 	Vector2 mousePoint = { 0.0f, 0.0f }; // for caching
 	mousePoint = GetMousePosition();
-
 
 
 	// while a compare is happening we shuldn't allow clicking
@@ -81,14 +89,14 @@ void Memory::EvalCurFrame()
 
 					tilesArr[i].status = Flipped;
 
-					if (tile_1_index == -1)
+					if (tile_1 == nullptr)
 					{
 						// this was the first click
-						tile_1_index = i;
+						tile_1 = &tilesArr[i];
 					}
 					else
 					{
-						tile_2_index = i;
+						tile_2 = &tilesArr[i];
 						timeOfSecondClick = GetTime(); // when did we click
 						compareMode = true;
 						canClick = false; // until compare is finished
@@ -108,23 +116,30 @@ skipClickingLabel:
 
 		if (GetTime() > timeOfSecondClick + WAIT_TIME) // a second after second click
 		{
+
+			if (tile_1->tileNum == tile_2->tileNum)
 			// Do compare
-			if (tilesArr[tile_1_index].tileNum == tilesArr[tile_2_index].tileNum)
+			//if (tilesArr[tile_1_index].tileNum == tilesArr[tile_2_index].tileNum)
 			{
 				// match
-				tilesArr[tile_1_index].status = Found;
-				tilesArr[tile_2_index].status = Found;
+				tile_1->status = Found;
+				tile_2->status = Found;
+				//tilesArr[tile_1_index].status = Found;
+				//tilesArr[tile_2_index].status = Found;
 			}
 			else
 			{
 				// Not a match
-				tilesArr[tile_1_index].status = Hidden;
-				tilesArr[tile_2_index].status = Hidden;
+				tile_1->status = Hidden;
+				tile_2->status = Hidden;
+				//tilesArr[tile_1_index].status = Hidden;
+				//tilesArr[tile_2_index].status = Hidden;
 			}
 
+			tile_1 = nullptr;
+			tile_2 = nullptr;
+
 			compareMode = false;
-			tile_1_index = -1;
-			tile_2_index = -1;
 			canClick = true;
 		}
 	}
@@ -133,12 +148,8 @@ skipClickingLabel:
 
 void Memory::DrawCurFrame()
 {
-
 	for (Tile tile : tilesArr)
 		tile.Display();
-
-
-
 
 }
 
@@ -147,3 +158,6 @@ void Memory::Update()
 	EvalCurFrame();
 	DrawCurFrame();
 }
+
+
+

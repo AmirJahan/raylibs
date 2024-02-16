@@ -7,32 +7,25 @@
 
 #include <tuple>
 
+
+#include <ostream>>
+#include <iostream>
+
 using namespace std;
 
 
 Tile::Tile(int h, int v, int tileSize, int gridSize, int num)
 {
-	rect = Rectangle{(float)h * (tileSize + GAP) + GAP,
-					 (float)v * (tileSize + GAP) + GAP,
+
+	// calculate where the tile should be
+	rect = Rectangle{ (float)h * (tileSize + GAP) + GAP, 
+		(float)v* (tileSize + GAP) + GAP,
 					 (float)tileSize,
 					 (float)tileSize};
 
 
-	Vector2 cen = Vector2{ 
-		rect.x + rect.width / 2,
-		rect.y + rect.height / 2 };
 
 	tileNum = num;
-	tileText = std::to_string(tileNum);
-
-
-	int txtWidth = MeasureText(tileText.c_str(), fontSize);
-
-	textOrigin = Vector2
-	{
-		cen.x - txtWidth / 2,
-		cen.y - fontSize / 2
-	};
 }
 
 
@@ -40,6 +33,24 @@ Tile::Tile(int h, int v, int tileSize, int gridSize, int num)
 
 void Tile::Display()
 {
+	// TextWidth can only be measured in a drawing loop
+	// for that reason, we calculate it here
+	Vector2 cen = Vector2 {
+							rect.x + rect.width / 2,
+							rect.y + rect.height / 2 
+							};
+
+	tileText = std::to_string(tileNum);
+	int txtWidth = MeasureText(tileText.c_str(), fontSize);
+	textOrigin = Vector2
+	{
+		cen.x - txtWidth / 2,
+		cen.y - fontSize / 2
+	};
+
+
+
+
 	switch (status)
 	{
 		case Hidden:
