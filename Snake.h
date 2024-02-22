@@ -7,31 +7,32 @@
 class Snake
 {
 public:
-#define SQUARE_SIZE 77
-#define MAX_TAIL_LENGTH 20
+#define TILE_SIZE 77
 
-    static const int screenWidth = 800;
-    static const int screenHeight = 600;
+    static const int screenW = 800;
+    static const int screenH = 600;
 
-    Vector2 borderGap = { screenWidth % SQUARE_SIZE, screenHeight % SQUARE_SIZE };
+    Vector2 borderGap = { screenW % TILE_SIZE, screenH % TILE_SIZE };
     int tailCount = 1;
 
-    typedef struct Head
+    typedef struct Piece
     {
         Vector2 position;
-        Vector2 size = Vector2{ SQUARE_SIZE, SQUARE_SIZE };
+        Vector2 size = Vector2{ TILE_SIZE, TILE_SIZE };
         Color color;
 
         void Draw()
         {
             DrawRectangleV(position, size, color);
         }
-    } Head;
+    } Piece;
 
 
 
-    Vector2 speed = Vector2{ SQUARE_SIZE, 0 };
-    std::vector<Head> heads;
+    Vector2 speed = Vector2{ TILE_SIZE, 0 };
+    std::vector<Piece> player;
+
+
 
     bool gamePaused = false;
     bool canMove = false; // used so that the snake doesn't go back on the X or Y
@@ -41,13 +42,14 @@ public:
     typedef struct Pickup
     {
         Vector2 position;
-        Vector2 size = Vector2{ SQUARE_SIZE, SQUARE_SIZE };
+        Vector2 size = Vector2{ TILE_SIZE, TILE_SIZE };
         bool active = false; // default is inactive, so it gets spawned to a random loc
         Color color = SKYBLUE;
 
         void newRandomLoc(Vector2 gap)
         {
-            position = Vector2{ GetRandomValue(0, (screenWidth / SQUARE_SIZE) - 1) * SQUARE_SIZE + gap.x / 2, GetRandomValue(0, (screenHeight / SQUARE_SIZE) - 1) * SQUARE_SIZE + gap.y / 2 };
+            position = Vector2{ GetRandomValue(0, (screenW / TILE_SIZE) - 1) * TILE_SIZE + gap.x / 2, 
+                GetRandomValue(0, (screenH / TILE_SIZE) - 1) * TILE_SIZE + gap.y / 2 };
         }
 
         void Draw()

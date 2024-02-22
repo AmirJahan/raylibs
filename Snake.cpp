@@ -20,7 +20,7 @@ bool operator==(const Vector2& a, const Vector2& b)
 // implement all methods from header file
 void Snake::Main()
 {
-    InitWindow(screenWidth, screenHeight, "classic game: snake");
+    InitWindow(screenW, screenH, "classic game: snake");
     Start();
 
     SetTargetFPS(60);
@@ -34,10 +34,10 @@ void Snake::Main()
 
 void Snake::Start()
 {
-    Head head_1;
+    Piece head_1;
     head_1.color = DARKBLUE;
     head_1.position = Vector2{ borderGap.x / 2, borderGap.y / 2 };
-    heads.push_back(head_1);
+    player.push_back(head_1);
 }
 
 void Snake::Restart()
@@ -48,7 +48,7 @@ void Snake::Restart()
 
     canMove = false;
 
-    heads.clear();
+    player.clear();
 
     Start();
 }
@@ -69,19 +69,19 @@ void Snake::EvalCurFrame()
             if (frameCount % 20 == 0)
             {
                 // from the back
-                for (int i = heads.size() - 1; i > 0; i--)
-                    heads[i].position = heads[i - 1].position;
+                for (int i = player.size() - 1; i > 0; i--)
+                    player[i].position = player[i - 1].position;
 
 
-                heads[0].position += speed;
+                player[0].position += speed;
                 canMove = true;
             }
 
             // Game over upon collision with the walls
-            if (((heads[0].position.x) > (screenWidth - borderGap.x)) ||
-                ((heads[0].position.y) > (screenHeight - borderGap.y)) ||
-                (heads[0].position.x < 0) ||
-                (heads[0].position.y < 0))
+            if (((player[0].position.x) > (screenW - borderGap.x)) ||
+                ((player[0].position.y) > (screenH - borderGap.y)) ||
+                (player[0].position.x < 0) ||
+                (player[0].position.y < 0))
             {
                 gameOver = true;
             }
@@ -92,9 +92,9 @@ void Snake::EvalCurFrame()
                 pickup.active = true;
                 pickup.newRandomLoc(borderGap);
 
-                for (int i = 0; i < heads.size(); i++)
+                for (int i = 0; i < player.size(); i++)
                 {
-                    while (pickup.position == heads[i].position)
+                    while (pickup.position == player[i].position)
                     {
                         pickup.newRandomLoc(borderGap);
                         i = 0; // redo
@@ -102,13 +102,14 @@ void Snake::EvalCurFrame()
                 }
             }
 
-            if (heads[0].position == pickup.position)
+            // collision with the pickup
+            if (player[0].position == pickup.position)
             {
-                Head newHead;
+                Piece newHead;
                 newHead.color = BLUE;
-
-                newHead.position = Vector2{ pickup.position.x, pickup.position.y }; // deep copy
-                heads.push_back(newHead);
+                // no need to set the position. As soon as we pass, this new one
+                // will be added to the end of the tail
+                player.push_back(newHead);
                 pickup.active = false;
             }
         }
@@ -130,26 +131,26 @@ void Snake::Interaction()
     {
         if (speed.x == 0 && canMove)
         {
-            speed = Vector2{ SQUARE_SIZE, 0 };
+            speed = Vector2{ TILE_SIZE, 0 };
             canMove = false;
         }
     }
 
     if (IsKeyPressed(KEY_LEFT) && speed.x == 0 && canMove)
     {
-        speed = Vector2{ -SQUARE_SIZE, 0 };
+        speed = Vector2{ -TILE_SIZE, 0 };
         canMove = false;
     }
 
     if (IsKeyPressed(KEY_UP) && speed.y == 0 && canMove)
     {
-        speed = Vector2{ 0, -SQUARE_SIZE };
+        speed = Vector2{ 0, -TILE_SIZE };
         canMove = false;
     }
 
     if (IsKeyPressed(KEY_DOWN) && speed.y == 0 && canMove)
     {
-        speed = Vector2{ 0, SQUARE_SIZE };
+        speed = Vector2{ 0, TILE_SIZE };
         canMove = false;
     }
 }
@@ -163,31 +164,38 @@ void Snake::DrawCurFrame()
     if (!gameOver)
     {
         // Draw grid lines
-        for (int i = 0; i < screenWidth / SQUARE_SIZE + 1; i++)
+        for (int i = 0; i < screenW / TILE_SIZE + 1; i++)
         {
-            Vector2 start = { SQUARE_SIZE * i + borderGap.x / 2, borderGap.y / 2 };
-            Vector2 end = { SQUARE_SIZE * i + borderGap.x / 2, screenHeight - borderGap.y / 2 };
+            Vector2 start = { TILE_SIZE * i + borderGap.x / 2, borderGap.y / 2 };
+            Vector2 end = { TILE_SIZE * i + borderGap.x / 2, screenH - borderGap.y / 2 };
 
             DrawLineV(start, end, LIGHTGRAY);
         }
 
-        for (int i = 0; i < screenHeight / SQUARE_SIZE + 1; i++)
+        for (int i = 0; i < screenH / TILE_SIZE + 1; i++)
         {
-            DrawLineV(Vector2{ borderGap.x / 2, SQUARE_SIZE * i + borderGap.y / 2 }, Vector2{ screenWidth - borderGap.x / 2, SQUARE_SIZE * i + borderGap.y / 2 }, LIGHTGRAY);
+            Vector2 start = Vector2 { borderGap.x / 2, TILE_SIZE * i + borderGap.y / 2 };
+            Vector2 end = Vector2 { screenW - borderGap.x / 2, TILE_SIZE * i + borderGap.y / 2 };
+
+            DrawLineV(start,
+                      end, LIGHTGRAY);
         }
 
 
-        for (Head head : heads)
+        for (Piece head : player)
             head.Draw();
 
         // Draw pickup
         pickup.Draw();
 
         if (gamePaused)
-            DrawText("GAME PAUSED", screenWidth / 2 - MeasureText("GAME PAUSED", 40) / 2, screenHeight / 2 - 40, 40, GRAY);
+            DrawText("GAME PAUSED", screenW / 2 - MeasureText("GAME PAUSED", 40) / 2, screenH / 2 - 40, 40, GRAY);
     }
     else // game over
-        DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+        DrawText("PRESS [ENTER] TO PLAY AGAIN", 
+                 GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, 
+                 GetScreenHeight() / 2 - 50, 20,
+                 GRAY);
 
     EndDrawing();
 }

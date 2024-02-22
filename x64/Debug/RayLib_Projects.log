@@ -1,6 +1,4 @@
-﻿  Snake.cpp
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Snake.cpp(72,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  main.cpp
+﻿  main.cpp
 C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\WallBreaker.h(35,36): warning C4305: 'argument': truncation from 'double' to 'float'
   (compiling source file 'main.cpp')
   
@@ -16,6 +14,8 @@ C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\WallBreake
 C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.h(18,16): warning C4305: 'initializing': truncation from 'double' to 'float'
   (compiling source file 'main.cpp')
   
+  Snake.cpp
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Snake.cpp(72,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   Generating Code...
   RayLib_Projects.vcxproj -> C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\x64\Debug\RayLib_Projects.exe
   'pwsh.exe' is not recognized as an internal or external command,
