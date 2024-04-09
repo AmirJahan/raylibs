@@ -1,19 +1,17 @@
 #include "raylib.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-
 #include "Flappy.h"
-
+#include <algorithm>
+#include <vector>
 
 
 
 void Flappy::Main()
 {
 	InitWindow(screenWidth, screenHeight, "Flappy Bird");
-
 	Start();
 
 	SetTargetFPS(60);
@@ -26,32 +24,20 @@ void Flappy::Main()
 }
 
 
-
 void Flappy::Start()
 {
-	floppy.radius = BALL_RADIUS;
-	floppy.position = Vector2{ 80, (float)screenHeight / 2 - floppy.radius };
-	tubesSpeedX = 2;
+	columns.clear();
+	player.position = Vector2{ 80, (float)screenHeight / 2 - player.radius };
 
-	for (int i = 0; i < MAX_TUBES; i++)
+	for (int i = 0; i < 3; i++)
 	{
-		tubesPos[i].x = 400 + 280 * i;
-		tubesPos[i].y = -GetRandomValue(0, 120);
-	}
+		float x = (float)(280 * i) + 200; // 200 initial offset
 
-	for (int i = 0; i < MAX_TUBES * 2; i += 2)
-	{
-		tubes[i].rec.x = tubesPos[i / 2].x;
-		tubes[i].rec.y = tubesPos[i / 2].y;
-		tubes[i].rec.width = TUBES_WIDTH;
-		tubes[i].rec.height = 255;
+		float topHeight = (float)GetRandomValue(200, 300);
 
-		tubes[i + 1].rec.x = tubesPos[i / 2].x;
-		tubes[i + 1].rec.y = 600 + tubesPos[i / 2].y - 255;
-		tubes[i + 1].rec.width = TUBES_WIDTH;
-		tubes[i + 1].rec.height = 255;
+		Column column = Column{ x, topHeight };
 
-		tubes[i / 2].active = true;
+		columns.push_back(column);
 	}
 
 	score = 0;
@@ -66,57 +52,54 @@ void Flappy::EvalCurFrame()
 	if (gameOver)
 	{
 		if (IsKeyPressed(KEY_ENTER))
-		{
 			Start();
-			gameOver = false;
-		}
+
 		return;
 	}
 
-
 	if (IsKeyPressed('P'))
 		gamePaused = !gamePaused;
-
-
-
 	if (gamePaused) return;
 
 
-	// move the tubes with the same speed
-	for (int i = 0; i < MAX_TUBES; i++)
-		tubesPos[i].x -= tubesSpeedX;
 
-
-	for (int i = 0; i < MAX_TUBES * 2; i += 2)
+	for (unsigned int i = 0; i < columns.size(); i++)
 	{
-		tubes[i].rec.x = tubesPos[i / 2].x;
-		tubes[i + 1].rec.x = tubesPos[i / 2].x;
-	}
+		columns[i].Move();
 
-	// push up when pressing the Space
-	if (IsKeyDown(KEY_SPACE)) 
-		floppy.position.y -= 3;
-	else // otherwise keep falling
-		floppy.position.y += 1;
-
-
-	// Check Collisions
-	for (int i = 0; i < MAX_TUBES * 2; i++)
-	{
-		if (CheckCollisionCircleRec(floppy.position, floppy.radius, tubes[i].rec))
+		if (columns[i].CheckCollisionWithPlayer(player))
 		{
 			gameOver = true;
 			gamePaused = false;
+			return;
 		}
-		else if ((tubesPos[i / 2].x < floppy.position.x) && tubes[i / 2].active && !gameOver)
-		{
-			score += 100;
-			tubes[i / 2].active = false;
 
-			if (score > hiScore) 
+
+		if (columns[i].PlayerCrossed(player) && !columns[i].gained)
+		{
+			columns[i].gained = true;
+			score += 1;
+			columns[i].color = RED;
+
+
+			if (score > hiScore)
 				hiScore = score;
 		}
+
+		if (columns[i].OutOfBounds())
+		{
+			columns[i].x = columns[columns.size() - 1].x + 280;
+			columns[i].heightTop = (float)GetRandomValue(200, 300);
+			columns[i].gained = false;
+
+			// shuffle index of this column in the array
+			// this part is somehwat unnecessary
+			std::rotate(columns.begin() + i, columns.begin() + i + 1, columns.end());
+		}
 	}
+
+	player.Move();
+
 }
 
 // Draw game (one frame)
@@ -126,46 +109,35 @@ void Flappy::DrawCurFrame()
 
 	ClearBackground(RAYWHITE);
 
-	if (!gameOver)
+	if (gameOver)
 	{
-		// Draw Ball
-		DrawCircle(floppy.position.x, 
-				   floppy.position.y,
-				   floppy.radius, 
-				   DARKGRAY);
+		DrawText("PRESS [ENTER] TO PLAY AGAIN",
+				 GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2,
+				 GetScreenHeight() / 2 - 50,
+				 20,
+				 GRAY);
+	}
+	else
+	{
+		// Draw Player
+		player.Draw();
 
-		// Draw tubes
-		for (int i = 0; i < MAX_TUBES; i++)
-		{
-			DrawRectangle(tubes[i * 2].rec.x,
-						  tubes[i * 2].rec.y, 
-						  tubes[i * 2].rec.width, 
-						  tubes[i * 2].rec.height, 
-						  GRAY);
 
-			DrawRectangle(tubes[i * 2 + 1].rec.x, 
-						  tubes[i * 2 + 1].rec.y,
-						  tubes[i * 2 + 1].rec.width, 
-						  tubes[i * 2 + 1].rec.height,
-						  GRAY);
-		}
+		for (unsigned int i = 0; i < columns.size(); i++)
+			columns[i].Draw();
+
+
 
 		// Draw Scores
-		DrawText(TextFormat("%04i", score), 20, 20, 40, GRAY);
-		DrawText(TextFormat("HI-SCORE: %04i", hiScore), 20, 70, 20, LIGHTGRAY);
+		DrawText(TextFormat("%04i", score), 20, 20, 40, BLUE);
+		DrawText(TextFormat("HI-SCORE: %04i", hiScore), 20, 70, 20, DARKBLUE);
 
-		if (gamePaused) 
-			DrawText("Press P to Unpause", 
+		if (gamePaused)
+			DrawText("Press P to Unpause",
 					 screenWidth / 2 - MeasureText("Press P to Unpause", 40) / 2,
 					 screenHeight / 2 - 40, 40,
 					 GRAY);
 	}
-	else
-		DrawText("PRESS [ENTER] TO PLAY AGAIN", 
-				 GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, 
-				 GetScreenHeight() / 2 - 50, 
-				 20, 
-				 GRAY);
 
 	EndDrawing();
 }

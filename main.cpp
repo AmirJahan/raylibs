@@ -13,6 +13,8 @@
 #include "Spirograph.h"
 #include "MsPacman.h"
 #include "Snake.h"
+#include "AiPath.h"
+#include "Tetries.h"
 
 using namespace std;
 
@@ -22,9 +24,15 @@ void cpp();
 
 int main()
 {
+    Tetries tetries;
+    tetries.Main();
+
+    AiPath aiPath;
+    // aiPath.Main();
+
 
     Snake snake;
-    snake.Main();
+    //snake.Main();
 
 
 
@@ -34,7 +42,7 @@ int main()
     //spiro.Main();
 
     Flappy flappy;
-    // flappy.Main();
+     //flappy.Main();
 
 
     MsPacman msPacman;

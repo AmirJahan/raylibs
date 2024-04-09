@@ -48,6 +48,12 @@
     <ClCompile Include="Snake.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AiPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tetries.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Memory.h">
@@ -81,6 +87,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Snake.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AiPath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tetries.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

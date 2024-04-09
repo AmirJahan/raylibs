@@ -11,12 +11,105 @@ C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\WallBreake
 C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\WallBreaker.h(50,23): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   (compiling source file 'main.cpp')
   
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Flappy.h(28,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Flappy.h(27,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Flappy.h(26,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Flappy.h(96,67): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Flappy.h(97,64): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
 C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Spirograph.h(18,16): warning C4305: 'initializing': truncation from 'double' to 'float'
   (compiling source file 'main.cpp')
   
-  Snake.cpp
-C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Snake.cpp(72,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\AiPath.h(31,56): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\AiPath.h(31,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(17,1): warning C4005: 'COLS': macro redefinition
+  (compiling source file 'main.cpp')
+  C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\AiPath.h(15,1):
+  see previous definition of 'COLS'
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(18,1): warning C4005: 'ROWS': macro redefinition
+  (compiling source file 'main.cpp')
+  C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\AiPath.h(14,1):
+  see previous definition of 'ROWS'
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(34,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(34,27): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(36,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(36,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(38,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(38,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(40,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(40,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(175,20): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(176,20): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'main.cpp')
+  
+  Tetries.cpp
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(34,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(34,27): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(36,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(36,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(38,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(38,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(40,29): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(40,22): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(175,20): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.h(176,20): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'Tetries.cpp')
+  
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.cpp(37,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\Tetries.cpp(38,19): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   Generating Code...
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   RayLib_Projects.vcxproj -> C:\Users\ajahanlou\OneDrive - College LaSalle\Desktop\RayLib_Projects\x64\Debug\RayLib_Projects.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.
